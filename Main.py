@@ -55,7 +55,7 @@ async def translate(interaction: discord.Interaction, target_language: str, mess
 
 
 
-# sync command for slash commands
+# sync command for slash commands!
 @bot.command()
 @commands.guild_only()
 @commands.is_owner()
