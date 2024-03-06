@@ -1,9 +1,3 @@
-import discord
-from translate import Translator
-from discord.ext import commands
-from discord import Interaction
-import config
-
 LANGUAGES = {
     'af': 'afrikaans',
     'sq': 'albanian',
