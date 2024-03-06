@@ -16,9 +16,11 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 translator = Translator()
 
+
 @bot.event
 async def on_ready():
     print("Translator bot ready")
+
 
 # ----------- Events -----------------
 
@@ -46,7 +48,6 @@ async def translate(ctx, arg):
 )
 async def translate(interaction: discord.Interaction, target_language: str, message: str):
     """Translates a message to a specific language."""
-
     translatedMessage = translator.translate(message, dest=target_language)
     await interaction.response.send_message(f'{interaction.user.mention}: {translatedMessage.text}')
 
@@ -61,6 +62,7 @@ async def translate_autocomplete(
         app_commands.Choice(name=fruit, value=fruit)
         for fruit in languages if current.lower() in fruit.lower()
     ]
+
 
 # sync command for slash commands!
 @bot.command()
