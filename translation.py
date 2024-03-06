@@ -107,7 +107,7 @@ LANGUAGES = {
     'yo': 'yoruba',
     'zu': 'zulu',
 }
-
+# short abbrev
 smallLang = ['af', 'sq',
              'am',
              'ar',
