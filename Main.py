@@ -3,10 +3,12 @@ from googletrans import Translator
 from discord.ext import commands
 from discord import app_commands
 from discord import Interaction
-from config import token, botsync
-from translation import LANGUAGES
+from config import token
+from translation import LANGUAGES, smallLang
 from typing import Literal, Optional
 
+# ♡⊹˚₊made with love by whisprdev ₊˚⊹♡
+# ------------------------------------- #
 
 intents = discord.Intents.all()
 intents.message_content = True
@@ -14,18 +16,18 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 translator = Translator()
 
-
 @bot.event
 async def on_ready():
     print("Translator bot ready")
 
+# ----------- Events -----------------
 
 @bot.command()
 async def reply(ctx, lang):
     message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
     userMessage = message.content
-    translateduserMessage = translator.translate(userMessage, dest=lang)
-    await ctx.send(f'This message translated to {LANGUAGES[lang]} is: {translateduserMessage.text}')
+    translatedMessage = translator.translate(userMessage, dest=lang)
+    await ctx.send(f'This message translated to {LANGUAGES[lang]} is: {translatedMessage.text}')
 
 
 @bot.command()
@@ -37,11 +39,6 @@ async def translate(ctx, arg):
     await ctx.send(translator.translate(arg))
 
 
-@bot.hybrid_command()
-async def test(ctx):
-    await ctx.send("This is a hybrid command!")
-
-
 @bot.tree.command()
 @app_commands.describe(
     target_language='The language you want your message translated to',
@@ -50,10 +47,20 @@ async def test(ctx):
 async def translate(interaction: discord.Interaction, target_language: str, message: str):
     """Translates a message to a specific language."""
 
-    translateduserMessage = translator.translate(message, dest=target_language)
-    await interaction.response.send_message(f'{interaction.user.mention}: {translateduserMessage.text}')
+    translatedMessage = translator.translate(message, dest=target_language)
+    await interaction.response.send_message(f'{interaction.user.mention}: {translatedMessage.text}')
 
 
+@translate.autocomplete('target_language')
+async def translate_autocomplete(
+        interaction: discord.Interaction,
+        current: str,
+) -> list[app_commands.Choice[str]]:
+    languages = smallLang
+    return [
+        app_commands.Choice(name=fruit, value=fruit)
+        for fruit in languages if current.lower() in fruit.lower()
+    ]
 
 # sync command for slash commands!
 @bot.command()
