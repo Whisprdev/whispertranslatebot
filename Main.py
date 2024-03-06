@@ -7,7 +7,7 @@ from config import token
 from translation import LANGUAGES, smallLang
 from typing import Literal, Optional
 
-# ♡⊹˚₊made with love by whisprdev ₊˚⊹♡
+# ♡⊹˚₊made with love by whisprdev ₊˚⊹♡ :3
 # ------------------------------------- #
 
 intents = discord.Intents.all()
